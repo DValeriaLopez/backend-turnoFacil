@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import ServicesController from '../controllers/services.controller.js';
+import UsersController from '../controllers/users.controller.js';
 
 const router = Router();
-const controller = new ServicesController();
+const controller = new UsersController();
 
 router.get('/', controller.getAll.bind(controller));
 router.get('/:id', controller.getById.bind(controller));

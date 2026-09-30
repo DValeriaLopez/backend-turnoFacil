@@ -1,4 +1,6 @@
-export default class ServiceRepository {
+import ServiceRepository from "../repositories/service.repository";
+
+export default class UsersService {
   async getAll() {}
 
   async getById(id) {}
@@ -8,6 +10,5 @@ export default class ServiceRepository {
   async update(id, payload) {}
 
   async remove(id) {
-    
   }
 }

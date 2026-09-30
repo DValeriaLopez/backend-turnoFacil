@@ -1,4 +1,4 @@
-export default class AppointmentsController {
+export default class UsersController {
   async getAll(req, res) {}
 
   async getById(req, res) {}

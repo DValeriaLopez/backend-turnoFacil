@@ -1,0 +1,11 @@
+export default class AppointmentsService {
+  async getAll() {}
+
+  async getById(id) {}
+
+  async create(payload) {}
+
+  async update(id, payload) {}
+
+  async remove(id) {}
+}
