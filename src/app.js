@@ -1,5 +1,5 @@
 import express from 'express';
-
+import authRoutes from './routes/auth.routes.js';
 import appointmentsRoutes from './routes/appointments.routes.js';
 import usersRoutes from './routes/users.routes.js';
 import servicesRoutes from './routes/services.routes.js';
@@ -13,8 +13,12 @@ app.use('/api/v1/appointments', appointmentsRoutes);
 app.use('/servicios', servicesRoutes);
 app.use('/api/v1/users', usersRoutes);
 
+app.use('/auth', authRoutes);
+app.use('/servicios', servicesRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
+
 
 if (process.env.NODE_ENV !== 'test') {
   const PORT = process.env.PORT ?? 3000;
