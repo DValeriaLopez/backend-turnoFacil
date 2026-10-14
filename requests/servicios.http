@@ -1,0 +1,47 @@
+@base = http://localhost:3000
+@token = {{login.response.body.token}}
+
+### 0. Login
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "ruru.admin@turnofacil.com", "password": "Admin12345" }
+
+
+### Listar (público)
+GET {{base}}/servicios?pagina=1&limite=5&orden=precio
+
+### Detalle (público)
+GET {{base}}/servicios/1
+
+### Crear sin token → 401
+POST {{base}}/servicios
+Content-Type: application/json
+
+{ "nombre": "Corona dental", "duracion_min": 60, "precio": 200 }
+
+### Crear (admin) → 201
+POST {{base}}/servicios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nombre": "Corona dental", "descripcion": "Corona de porcelana", "duracion_min": 60, "precio": 200 }
+
+### Crear con datos inválidos → 400
+POST {{base}}/servicios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nombre": "X", "duracion_min": -5 }
+
+### Actualizar parcial (admin) → 200
+PATCH {{base}}/servicios/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "precio": 95 }
+
+### Desactivar (admin) → 204
+DELETE {{base}}/servicios/6
+Authorization: Bearer {{token}}

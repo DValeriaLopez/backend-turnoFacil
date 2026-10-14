@@ -14,7 +14,6 @@ app.use('/servicios', servicesRoutes);
 app.use('/api/v1/users', usersRoutes);
 
 app.use('/auth', authRoutes);
-app.use('/servicios', servicesRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
