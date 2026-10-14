@@ -4,9 +4,9 @@ import AppError from '../utils/AppError.js';
 const repository = new ServiceRepository();
 
 export default class ServicesService {
-  async getAll({ buscar, pagina, limite }) {
+    async getAll({ buscar, pagina, limite, orden }) {
     const offset = (pagina - 1) * limite;
-    const { rows, total } = await repository.getAll({ buscar, limite, offset });
+    const { rows, total } = await repository.getAll({ buscar, limite, offset, orden });
 
     return {
       datos: rows,

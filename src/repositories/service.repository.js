@@ -1,14 +1,17 @@
-import pool from '../db/connection.js';                       // ← NUEVO: conexión a la base de datos
+import pool from '../db/connection.js';
 
 export default class ServiceRepository {
-  async getAll({ buscar, limite, offset }) {                  // ← recibe los filtros
+  async getAll({ buscar, limite, offset, orden }) {
     const filtro = `%${buscar ?? ''}%`;
     const { rows } = await pool.query(
       `SELECT * FROM servicios
        WHERE activo = true AND nombre ILIKE $1
-       ORDER BY id
+       ORDER BY
+         CASE WHEN $4 = 'precio' THEN precio END,
+         CASE WHEN $4 = 'duracion_min' THEN duracion_min END,
+         nombre
        LIMIT $2 OFFSET $3`,
-      [filtro, limite, offset]
+      [filtro, limite, offset, orden]
     );
     const { rows: conteo } = await pool.query(
       'SELECT COUNT(*)::int AS total FROM servicios WHERE activo = true AND nombre ILIKE $1',
