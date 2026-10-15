@@ -1,0 +1,33 @@
+@base = http://localhost:3000
+
+### Registro → 201 (sin password_hash en la respuesta)
+POST {{base}}/auth/registro
+Content-Type: application/json
+
+{ "nombre": "Ruru Admin", "email": "ruru.admin@turnofacil.com", "password": "Admin12345" }
+
+### Registro repetido → 409
+POST {{base}}/auth/registro
+Content-Type: application/json
+
+{ "nombre": "Ruru Admin", "email": "ruru.admin@turnofacil.com", "password": "Admin12345" }
+
+### Login con contraseña incorrecta → 401
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "ruru.admin@turnofacil.com", "password": "incorrecta" }
+
+### Login 200 con token
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "ruru.admin@turnofacil.com", "password": "Admin12345" }
+
+### Mis datos 200
+GET {{base}}/auth/yo
+Authorization: Bearer {{login.response.body.token}}
+
+### Sin token 401
+GET {{base}}/auth/yo
