@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Limpieza dental (profilaxis)",
+    "description": "Eliminación de placa y sarro con pulido, con control periódico de encías.",
+    "duration_minutes": 30,
+    "price": 18000,
+    "active": true,
+    "created_at": "2026-01-05T07:00:00"
+  },
+  {
+    "id": 2,
+    "name": "Carilla dental",
+    "description": "Colocación de carilla estética sobre el diente para recuperar forma y color.",
+    "duration_minutes": 60,
+    "price": 135000,
+    "active": true,
+    "created_at": "2026-01-05T07:10:00"
+  },
+  {
+    "id": 3,
+    "name": "Endodoncia",
+    "description": "Tratamiento de conductos para conservar la pieza dental ante una infección del nervio.",
+    "duration_minutes": 90,
+    "price": 98000,
+    "active": true,
+    "created_at": "2026-01-05T07:20:00"
+  },
+  {
+    "id": 4,
+    "name": "Control de ortodoncia",
+    "description": "Revisión del avance del tratamiento y ajuste de aparatos o alineadores.",
+    "duration_minutes": 20,
+    "price": 22000,
+    "active": true,
+    "created_at": "2026-01-05T07:30:00"
+  },
+  {
+    "id": 5,
+    "name": "Extracción simple",
+    "description": "Retiro de una pieza dental sin cirugía, con indicaciones de cuidado posteriores.",
+    "duration_minutes": 45,
+    "price": 38000,
+    "active": true,
+    "created_at": "2026-01-05T07:40:00"
+  },
+  {
+    "id": 6,
+    "name": "Implante dental",
+    "description": "Colocación de implante de titanio para reemplazar una pieza faltante.",
+    "duration_minutes": 120,
+    "price": 280000,
+    "active": true,
+    "created_at": "2026-01-05T07:50:00"
+  },
+  {
+    "id": 7,
+    "name": "Blancamiento",
+    "description": "Aclarado del esmalte dental con agente de consultorio y control de sensibilidad.",
+    "duration_minutes": 60,
+    "price": 65000,
+    "active": true,
+    "created_at": "2026-01-05T08:00:00"
+  },
+  {
+    "id": 8,
+    "name": "Radiografía panorámica",
+    "description": "Estudio radiográfico de toda la cavidad oral para diagnóstico inicial.",
+    "duration_minutes": 15,
+    "price": 9000,
+    "active": true,
+    "created_at": "2026-01-05T08:10:00"
+  }
+]
