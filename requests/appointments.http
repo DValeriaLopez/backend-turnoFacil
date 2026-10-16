@@ -1,0 +1,103 @@
+@base = http://localhost:3000
+@token = {{login.response.body.token}}
+
+### Registro → 201
+POST {{base}}/auth/registro
+Content-Type: application/json
+
+{ "nombre": "Cliente Demo", "email": "cliente.demo@turnofacil.com", "password": "Cliente12345" }
+
+### Login → 200
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "cliente.demo@turnofacil.com", "password": "Cliente12345" }
+
+### Listar sin token → 401
+GET {{base}}/api/v1/appointments
+
+### Listar reservas (solo con sesión; admin ve todas con contacto) → 200
+GET {{base}}/api/v1/appointments
+Authorization: Bearer {{token}}
+
+### Detalle → 200
+GET {{base}}/api/v1/appointments/1
+Authorization: Bearer {{token}}
+
+### Detalle inexistente → 404
+GET {{base}}/api/v1/appointments/999999
+Authorization: Bearer {{token}}
+
+### Crear reserva PÚBLICA, sin token (paciente sin cuenta) → 201
+# El paciente no tiene login: los datos de contacto van en la reserva.
+# Con token opcional, la reserva además queda vinculada a usuario_id.
+POST {{base}}/api/v1/appointments
+Content-Type: application/json
+
+{
+  "servicio_id": 1,
+  "fecha_hora": "2026-11-01T10:00:00",
+  "nombre_contacto": "Laura Fernández",
+  "email_contacto": "laura.fernandez@correo.com",
+  "telefono": "+54 11 5555-0199",
+  "notas": "Primera consulta"
+}
+
+### Crear con sesión (vincula usuario_id) → 201
+POST {{base}}/api/v1/appointments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "servicio_id": 2,
+  "fecha_hora": "2026-11-02T11:30:00",
+  "nombre_contacto": "Cliente Demo",
+  "email_contacto": "cliente.demo@turnofacil.com",
+  "telefono": "+54 11 5555-0100"
+}
+
+### Sin datos de contacto → 400
+POST {{base}}/api/v1/appointments
+Content-Type: application/json
+
+{ "servicio_id": 1, "fecha_hora": "2026-11-01T10:00:00", "notas": "falta el contacto" }
+
+### Servicio inexistente → 404
+POST {{base}}/api/v1/appointments
+Content-Type: application/json
+
+{
+  "servicio_id": 999999,
+  "fecha_hora": "2026-11-01T10:00:00",
+  "nombre_contacto": "Laura Fernández",
+  "email_contacto": "laura.fernandez@correo.com"
+}
+
+### Datos inválidos → 400
+POST {{base}}/api/v1/appointments
+Content-Type: application/json
+
+{
+  "servicio_id": -1,
+  "fecha_hora": "no-es-fecha",
+  "nombre_contacto": "A",
+  "email_contacto": "no-es-un-email"
+}
+
+### Confirmar reserva → 200
+PUT {{base}}/api/v1/appointments/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "estado": "confirmada" }
+
+### Cambiar estado sin token → 401
+PUT {{base}}/api/v1/appointments/1
+Content-Type: application/json
+
+{ "estado": "cancelada" }
+
+### Cancelar reserva → 204 (sin cuerpo)
+DELETE {{base}}/api/v1/appointments/1
+Authorization: Bearer {{token}}

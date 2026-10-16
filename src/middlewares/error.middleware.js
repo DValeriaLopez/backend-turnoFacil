@@ -13,6 +13,11 @@ export function errorHandler(err, req, res, next) {
   if (err.type === 'entity.parse.failed') {
     return res.status(400).json({ error: { mensaje: 'JSON mal formado', detalles: [] } });
   }
+  if (err.code === '23503') {
+    return res.status(409).json({
+      error: { mensaje: 'Operación no permitida: existen registros relacionados', detalles: [] },
+    });
+  }
   console.error(err);
   res.status(500).json({ error: { mensaje: 'Error interno del servidor', detalles: [] } });
 }
